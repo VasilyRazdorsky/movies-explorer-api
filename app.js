@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
@@ -17,6 +18,8 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+app.use(requestLogger);
+
 app.post('/signup', createUser);
 app.post('/signin', login);
 
@@ -29,6 +32,8 @@ app.use('*', (req, res, next) => {
   const err = new NotFoundError(errorsTexts.incorrectRouteError);
   next(err);
 })
+
+app.use(errorLogger);
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
