@@ -8,8 +8,12 @@ const errorsTexts = {
   movieAccessError: 'Взаимодействие с чужим сохранённым фильмом невозможно',
   needToAuthoriseError: 'Необходима авторизация',
   incorrectRouteError: 'Некорректный путь',
+  incorrectAuthorisation: 'Направильные почта или пароль',
 }
+
+const validOperationCode = 200;
 
 module.exports = {
   errorsTexts,
+  validOperationCode,
 }
