@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const auth = require('./middlewares/auth');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 const { createUser, login } = require('./controllers/users');
@@ -15,6 +16,8 @@ app.use(bodyParser.json());
 
 app.post('/signup', createUser);
 app.post('/signin', login);
+
+app.use(auth);
 
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
