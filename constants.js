@@ -14,7 +14,10 @@ const errorsTexts = {
 
 const validOperationCode = 200;
 
+const urlPattern = /(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?/i;
+
 module.exports = {
   errorsTexts,
   validOperationCode,
+  urlPattern,
 }
