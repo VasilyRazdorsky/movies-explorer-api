@@ -9,6 +9,7 @@ const errorsTexts = {
   needToAuthoriseError: 'Необходима авторизация',
   incorrectRouteError: 'Некорректный путь',
   incorrectAuthorisation: 'Направильные почта или пароль',
+  serverError: 'На сервере произошла ошибка',
 }
 
 const validOperationCode = 200;

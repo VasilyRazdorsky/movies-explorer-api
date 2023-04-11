@@ -19,8 +19,7 @@ const createUser = (req, res, next) => {
     } else if (error.name === 'ValidationError') {
       err = new ValidationError(errorsTexts.incorrectData);
     }
-    //next(err);
-    return res.send(err);
+    next(err);
   })
 }
 
@@ -48,8 +47,7 @@ const login = (req, res, next) => {
     return res.status(validOperationCode).send({ jwt });
   })
   .catch((error) => {
-    res.send(error);
-    //next(error);
+    next(error);
   })
 }
 
