@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const { errors, celebrate, Joi } = require('celebrate');
 const limiter = require('./middlewares/rateLimiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -18,6 +19,8 @@ const { PORT = 3001 } = process.env;
 const app = express();
 
 app.use(cors());
+
+app.use(helmet());
 
 app.use(bodyParser.json());
 
