@@ -53,7 +53,7 @@ const movieSchema = new mongoose.Schema({
   nameEN: {
     type: String,
     required: true,
-  }
+  },
 }, { versionKey: false });
 
 const movieModel = mongoose.model('movie', movieSchema);

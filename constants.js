@@ -1,5 +1,5 @@
 const errorsTexts = {
-  baseError : 'Произошла ошибка',
+  baseError: 'Произошла ошибка',
   userNotFound: 'Пользователь не найден',
   MovieNotFound: 'Фильм не найден',
   incorrectData: 'Введены некорректные данные',
@@ -10,7 +10,7 @@ const errorsTexts = {
   incorrectRouteError: 'Некорректный путь',
   incorrectAuthorisation: 'Направильные почта или пароль',
   serverError: 'На сервере произошла ошибка',
-}
+};
 
 const validOperationCode = 200;
 
@@ -20,4 +20,4 @@ module.exports = {
   errorsTexts,
   validOperationCode,
   urlPattern,
-}
+};

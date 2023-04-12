@@ -1,12 +1,12 @@
 const moviesRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { getMovies, addMovie, deleteMovie } = require('../controllers/movies');
-const { urlPattern } = require('../constants')
+const { urlPattern } = require('../constants');
 
-//GET /movies
+// GET /movies
 moviesRouter.get('/', getMovies);
 
-//POST /movies
+// POST /movies
 moviesRouter.post('/', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
@@ -23,7 +23,7 @@ moviesRouter.post('/', celebrate({
   }),
 }), addMovie);
 
-//DELETE /movies/_id
+// DELETE /movies/_id
 moviesRouter.delete('/:movieId', celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().required().hex().length(24),

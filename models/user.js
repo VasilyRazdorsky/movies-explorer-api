@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
       validator(v) {
         return validator.isEmail(v);
       },
-      message: "Поле 'email' должно быть валидным email-адресом."
+      message: "Поле 'email' должно быть валидным email-адресом.",
     },
   },
   password: {
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 30,
-  }
+  },
 }, { versionKey: false });
 
 const userModel = mongoose.model('User', userSchema);

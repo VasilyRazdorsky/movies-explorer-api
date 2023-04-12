@@ -43,7 +43,7 @@ app.use('/movies', moviesRouter);
 app.use('*', (req, res, next) => {
   const err = new NotFoundError(errorsTexts.incorrectRouteError);
   next(err);
-})
+});
 
 app.use(errorLogger);
 
@@ -52,14 +52,13 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({
-    message: statusCode === 500 ? errorsTexts.serverError: message,
+    message: statusCode === 500 ? errorsTexts.serverError : message,
   });
   next();
-})
+});
 
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewURLParser: true,
 }).then(() => {
   app.listen(PORT);
 });
-

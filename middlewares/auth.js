@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
-    if(!authorization || !authorization.startsWith('Bearer')){
+    if (!authorization || !authorization.startsWith('Bearer')) {
       throw new IncorrectAuthorisationError(errorsTexts.needToAuthoriseError);
     }
 
@@ -14,14 +14,14 @@ module.exports = (req, res, next) => {
     let payload;
     try {
       payload = jsonwebtoken.verify(token, 'dev_secret');
-    } catch(error) {
+    } catch (error) {
       throw new IncorrectAuthorisationError(errorsTexts.needToAuthoriseError);
     }
 
     req.user = payload;
 
     next();
-  } catch(error) {
+  } catch (error) {
     next(error);
   }
-}
+};
