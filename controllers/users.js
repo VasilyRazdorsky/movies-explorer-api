@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/user');
-const { errorsTexts, validOperationCode } = require('../constants');
+const { errorsTexts, validOperationsCodes } = require('../constants');
 const IncorrectDataError = require('../errors/IncorrectDataError');
 const AlreadyRegisteredError = require('../errors/AlreadyRegisteredError');
 const IncorrectAuthorisationError = require('../errors/IncorrectAuthorisationError');
@@ -12,7 +12,9 @@ const createUser = (req, res, next) => {
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({ name, email, password: hash }))
-    .then((user) => res.status(validOperationCode).json({ name: user.name, email: user.email }))
+    .then((user) => res.status(
+      validOperationsCodes.validCreationCode,
+    ).json({ name: user.name, email: user.email }))
     .catch((error) => {
       let err = error;
       if (err.code === 11000) {
@@ -45,7 +47,7 @@ const login = (req, res, next) => {
     .then((user) => {
       const jwt = jsonwebtoken.sign({ _id: user._id }, 'dev_secret', { expiresIn: '7d' });
 
-      return res.status(validOperationCode).json({ jwt });
+      return res.status(validOperationsCodes.validOperationCode).json({ jwt });
     })
     .catch((error) => {
       next(error);
@@ -61,7 +63,7 @@ const getCurrentUser = (req, res, next) => {
         throw new NotFoundError(errorsTexts.userNotFound);
       }
 
-      return res.status(validOperationCode).json(user);
+      return res.status(validOperationsCodes.validOperationCode).json(user);
     })
     .catch((error) => {
       next(error);
@@ -81,7 +83,7 @@ const updateCurrentUser = (req, res, next) => {
         throw new NotFoundError(errorsTexts.userNotFound);
       }
 
-      return res.status(validOperationCode).json(user);
+      return res.status(validOperationsCodes.validOperationCode).json(user);
     })
     .catch((error) => {
       let err = error;

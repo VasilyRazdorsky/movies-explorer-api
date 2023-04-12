@@ -1,12 +1,14 @@
 const Movie = require('../models/movie');
-const { errorsTexts, validOperationCode } = require('../constants');
+const { errorsTexts, validOperationsCodes } = require('../constants');
 const NotFoundError = require('../errors/NotFoundError');
 const IncorrectDataError = require('../errors/IncorrectDataError');
 const AccessError = require('../errors/AccessError');
 
 const getMovies = (req, res, next) => {
   Movie.find({}).populate(['owner'])
-    .then((movies) => res.status(validOperationCode).json(movies))
+    .then((movies) => res.status(
+      validOperationsCodes.validOperationCode,
+    ).json(movies))
     .catch((error) => {
       next(error);
     });
@@ -41,7 +43,7 @@ const addMovie = (req, res, next) => {
     movieId,
     owner: req.user._id,
   })
-    .then((movie) => res.status(validOperationCode).json(movie))
+    .then((movie) => res.status(validOperationsCodes.validCreationCode).json(movie))
     .catch((error) => {
       let err = error;
       if (error.name === 'ValidationError') {
@@ -62,7 +64,8 @@ const deleteMovie = (req, res, next) => {
 
       if (movie.owner.equals(req.user._id.toString())) {
         Movie.findByIdAndDelete(movie._id)
-          .then((deletedMovie) => res.status(validOperationCode).json(deletedMovie))
+          .then((deletedMovie) => res.status(validOperationsCodes.validOperationCode)
+            .json(deletedMovie))
           .catch(() => {
             const err = new IncorrectDataError(errorsTexts.incorrectId);
             next(err);

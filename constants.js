@@ -12,12 +12,15 @@ const errorsTexts = {
   serverError: 'На сервере произошла ошибка',
 };
 
-const validOperationCode = 200;
+const validOperationsCodes = {
+  validOperationCode: 200,
+  validCreationCode: 201,
+};
 
 const urlPattern = /(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?/i;
 
 module.exports = {
   errorsTexts,
-  validOperationCode,
   urlPattern,
+  validOperationsCodes,
 };
