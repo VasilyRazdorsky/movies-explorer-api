@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
+const limiter = require('./middlewares/rateLimiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const usersRouter = require('./routes/users');
@@ -18,6 +19,8 @@ const app = express();
 app.use(cors());
 
 app.use(bodyParser.json());
+
+app.use(limiter);
 
 app.use(requestLogger);
 
