@@ -6,6 +6,7 @@ const IncorrectDataError = require('../errors/IncorrectDataError');
 const AlreadyRegisteredError = require('../errors/AlreadyRegisteredError');
 const IncorrectAuthorisationError = require('../errors/IncorrectAuthorisationError');
 const NotFoundError = require('../errors/NotFoundError');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
@@ -45,7 +46,7 @@ const login = (req, res, next) => {
         });
     })
     .then((user) => {
-      const jwt = jsonwebtoken.sign({ _id: user._id }, 'dev_secret', { expiresIn: '7d' });
+      const jwt = jsonwebtoken.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev_secret', { expiresIn: '7d' });
 
       return res.status(validOperationsCodes.validOperationCode).json({ jwt });
     })

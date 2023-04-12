@@ -1,3 +1,5 @@
+require('dotenv').config();
+const { DB_URL } = process.env;
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -58,7 +60,7 @@ app.use(errors());
 
 app.use(errorHandler);
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(DB_URL, {
   useNewURLParser: true,
 }).then(() => {
   app.listen(PORT);
