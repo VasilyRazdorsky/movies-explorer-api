@@ -6,6 +6,7 @@ const IncorrectDataError = require('../errors/IncorrectDataError');
 const AlreadyRegisteredError = require('../errors/AlreadyRegisteredError');
 const IncorrectAuthorisationError = require('../errors/IncorrectAuthorisationError');
 const NotFoundError = require('../errors/NotFoundError');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const createUser = (req, res, next) => {

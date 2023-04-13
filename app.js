@@ -1,5 +1,6 @@
 require('dotenv').config();
-const { DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
+
+const { DB_URL } = process.env;
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -26,9 +27,9 @@ app.use(helmet());
 
 app.use(bodyParser.json());
 
-app.use(limiter);
-
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
