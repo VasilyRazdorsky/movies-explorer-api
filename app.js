@@ -61,7 +61,7 @@ app.use(errors());
 
 app.use(errorHandler);
 
-mongoose.connect(DB_URL, {
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb'/*DB_URL*/, {
   useNewURLParser: true,
 }).then(() => {
   app.listen(PORT);

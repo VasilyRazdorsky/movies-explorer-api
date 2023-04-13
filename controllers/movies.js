@@ -66,8 +66,11 @@ const deleteMovie = (req, res, next) => {
         Movie.findByIdAndDelete(movie._id)
           .then((deletedMovie) => res.status(validOperationsCodes.validOperationCode)
             .json(deletedMovie))
-          .catch(() => {
-            const err = new IncorrectDataError(errorsTexts.incorrectId);
+          .catch((error) => {
+            let err = error;
+            if (error.name === 'CastError') {
+              err = new IncorrectDataError(errorsTexts.incorrectId);
+            }
             next(err);
           });
       } else {
