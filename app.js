@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const { errors, celebrate, Joi } = require('celebrate');
 const limiter = require('./middlewares/rateLimiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const routes = require('./routes/index');
 const auth = require('./middlewares/auth');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
@@ -31,29 +32,7 @@ app.use(requestLogger);
 
 app.use(limiter);
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-    name: Joi.string().required().min(2).max(30),
-  }),
-}), createUser);
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  }),
-}), login);
-
-app.use(auth);
-
-app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
-
-app.use('*', (req, res, next) => {
-  const err = new NotFoundError(errorsTexts.incorrectRouteError);
-  next(err);
-});
+app.use(routes);
 
 app.use(errorLogger);
 
@@ -61,7 +40,7 @@ app.use(errors());
 
 app.use(errorHandler);
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb'/*DB_URL*/, {
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb'/* DB_URL */, {
   useNewURLParser: true,
 }).then(() => {
   app.listen(PORT);

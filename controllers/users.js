@@ -91,7 +91,7 @@ const updateCurrentUser = (req, res, next) => {
       let err = error;
       if (err.code === 11000) {
         err = new AlreadyRegisteredError(errorsTexts.alreadyRegisteredError);
-      }else if (error.name === 'ValidationError') {
+      } else if (error.name === 'ValidationError') {
         err = new IncorrectDataError(errorsTexts.incorrectData);
       }
       next(err);
